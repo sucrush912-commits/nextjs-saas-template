@@ -1,0 +1,8 @@
+overrides:
+  hono: 4.12.25
+
+allowBuilds:
+  classic-level: true
+  esbuild: true
+  msw: true
+  sharp: true

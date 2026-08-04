@@ -1,0 +1,200 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --color-gold: var(--gold);
+  --color-cinnabar: var(--cinnabar);
+  --color-mist: var(--mist);
+  --color-charcoal: var(--charcoal);
+  --color-ink: var(--ink);
+  --color-ink-foreground: var(--ink-foreground);
+  --font-sans: 'Geist', 'Geist Fallback', system-ui, sans-serif;
+  --font-serif: 'Cormorant Garamond', 'Cormorant Garamond Fallback', Georgia, serif;
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+}
+
+:root {
+  color-scheme: light;
+  /* Cool fog-white editorial palette: Co-Star cold minimalism x Eastern ink */
+  --background: #f0f0ec; /* warm rice-paper white, matches screenshot */
+  --foreground: #1a1b1a; /* cool ink black */
+  --card: #f5f6f2; /* warm paper white */
+  --card-foreground: #1a1b1a;
+  --popover: #fafbf9;
+  --popover-foreground: #1a1b1a;
+  --primary: #1a1b1a;
+  --primary-foreground: #fafbf9;
+  --secondary: #232523; /* cool charcoal */
+  --secondary-foreground: #fafbf9;
+  --muted: #eaecea;
+  --muted-foreground: #6e7370;
+  --accent: #8a7a5f; /* desaturated bronze, restrained */
+  --accent-foreground: #1a1b1a;
+  --destructive: #93392f;
+  --border: #dcdedb; /* cool mist gray */
+  --input: #dcdedb;
+  --ring: #8a7a5f;
+  --radius: 0.25rem;
+  --gold: #8a7a5f;
+  --cinnabar: #93392f;
+  --mist: #dcdedb;
+  --charcoal: #232523;
+  --ink: #161717;
+  --ink-foreground: #f4f5f3;
+  /* Semantic data colors for Five Elements: distinct but still editorial */
+  --el-wood: #2f8a4b;
+  --el-fire: #c84632;
+  --el-earth: #b9852c;
+  --el-metal: #8f939a;
+  --el-water: #2f6f9f;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Subtle paper texture */
+.paper-texture {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
+}
+
+/* Restrained inline loading line */
+@keyframes progress-line {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(400%);
+  }
+}
+
+.progress-line {
+  animation: progress-line 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress-line {
+    animation: none;
+  }
+}
+
+/* Quiet ink-reveal motion */
+@keyframes ink-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ink-reveal {
+  animation: ink-reveal 0.9s ease-out both;
+}
+
+.ink-reveal-delay-1 {
+  animation-delay: 0.15s;
+}
+
+.ink-reveal-delay-2 {
+  animation-delay: 0.3s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ink-reveal,
+  .ink-reveal-delay-1,
+  .ink-reveal-delay-2 {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* Visible keyboard focus */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* Hero ink-wash right panel */
+.hero-ink-mask {
+  mask-image: radial-gradient(ellipse 68% 72% at center, black 28%, transparent 82%);
+  -webkit-mask-image: radial-gradient(ellipse 68% 72% at center, black 28%, transparent 82%);
+}
+
+/* Quick-pill: make CTA button flush to edge */
+.quick-pill-btn {
+  border-radius: 9999px;
+  background: var(--foreground);
+  color: var(--primary-foreground);
+  padding: 0 28px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  height: 48px;
+  white-space: nowrap;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+.quick-pill-btn:hover { background: var(--charcoal); }
+.quick-pill-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* Field select / input — unified hero form style */
+.hero-field-select {
+  width: 100%;
+  border: 1px solid var(--input);
+  background: var(--background);
+  padding: 11px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--foreground);
+  border-radius: 0.375rem;
+  outline: none;
+  transition: border-color 0.15s;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+.hero-field-select:focus { border-color: var(--gold); }
+
+/* Scrollbar thin */
+@supports (scrollbar-width: thin) {
+  * { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+}
