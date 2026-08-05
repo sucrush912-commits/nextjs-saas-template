@@ -1,7 +1,17 @@
 {
-  "name": "my-project",
+  "name": "nextjs-saas-template",
   "version": "2.0.0",
   "private": true,
+  "description": "A reusable Next.js SaaS foundation with Supabase Auth, Waffo, shadcn/ui and Tailwind CSS.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sucrush912-commits/nextjs-saas-template.git"
+  },
+  "homepage": "https://github.com/sucrush912-commits/nextjs-saas-template#readme",
+  "bugs": {
+    "url": "https://github.com/sucrush912-commits/nextjs-saas-template/issues"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -11,8 +21,6 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",
-    "@countrystatecity/countries": "1.0.7",
-    "@ground-codes/geoint": "0.0.3",
     "@supabase/ssr": "^0.12.1",
     "@supabase/supabase-js": "^2.110.3",
     "@vercel/analytics": "1.6.1",
