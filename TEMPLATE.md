@@ -32,6 +32,14 @@ The repository is also configured for pnpm; use `pnpm install` and `pnpm dev` if
 | `WAFFO_PRODUCT_*` | Optional fixed product IDs for your future business layer | Your Waffo product catalogue |
 | `LOCATION_*`, `OPEN_METEO_*` | Unused compatibility placeholders from the source project | Only configure after adding a location feature |
 
+## Google OAuth setup
+
+1. In Supabase Dashboard, enable the **Google** provider under **Authentication → Providers** and enter a Google OAuth client ID and secret.
+2. In Google Cloud, add the Supabase callback URI shown in the provider setup (normally `https://<project-ref>.supabase.co/auth/v1/callback`) to the OAuth client's authorized redirect URIs.
+3. In **Authentication → URL Configuration**, set your site URL and allow each application callback, for example `http://localhost:3000/auth/callback` locally and `https://your-domain.com/auth/callback` in production.
+
+The application sends the user to `/auth/callback`, exchanges the authorization code for a Supabase session, then returns to `/`. No Google credential belongs in a `NEXT_PUBLIC_` variable.
+
 ## Replace these placeholders
 
 | Placeholder | Location | Required action |
@@ -48,6 +56,7 @@ The repository is also configured for pnpm; use `pnpm install` and `pnpm dev` if
 ```text
 app/                     App Router pages and API routes
 app/auth/                Supabase password and OAuth callback flows
+app/actions.ts           Google OAuth server action
 app/api/payments/waffo/  Generic checkout and verified-webhook entry points
 components/              Shared UI, auth and account shells
 lib/supabase/            Browser/server/admin Supabase client factories
