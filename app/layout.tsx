@@ -17,7 +17,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = { colorScheme: 'light', themeColor: '#F4F5F3' }
+const shouldLoadVercelAnalytics = process.env.NEXT_PUBLIC_VERCEL_ANALYTICS_ENABLED === 'true'
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en" className="bg-background" suppressHydrationWarning><body className="antialiased font-sans" suppressHydrationWarning>{children}{process.env.NODE_ENV === 'production' && <Analytics />}<GoogleAnalytics /></body></html>
+  return <html lang="en" className="bg-background" suppressHydrationWarning><body className="antialiased font-sans" suppressHydrationWarning>{children}{process.env.NODE_ENV === 'production' && shouldLoadVercelAnalytics && <Analytics />}<GoogleAnalytics /></body></html>
 }

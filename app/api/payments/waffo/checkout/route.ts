@@ -1,15 +1,31 @@
 import { NextResponse } from 'next/server'
 import { createWaffoCheckout } from '@/lib/payments/waffo'
-import { safeCheckoutPath, stringMetadata } from '@/lib/payments/waffo-checkout'
+import { configuredWaffoProductIds, safeCheckoutPath } from '@/lib/payments/waffo-checkout'
+import { createFixedWindowRateLimiter } from '@/lib/security/rate-limit'
+import { createClient } from '@/lib/supabase/server'
+
+const checkoutRateLimiter = createFixedWindowRateLimiter({ limit: 5, windowMs: 60_000 })
 
 export async function POST(request: Request) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return NextResponse.json({ error: 'AUTHENTICATION_REQUIRED' }, { status: 401 })
+
+  if (!checkoutRateLimiter.consume(user.id)) {
+    return NextResponse.json({ error: 'TOO_MANY_REQUESTS' }, { status: 429 })
+  }
+
   const body = await request.json().catch(() => null)
   if (typeof body?.productId !== 'string' || !body.productId.trim()) return NextResponse.json({ error: 'INVALID_PRODUCT_ID' }, { status: 400 })
+  const allowedProductIds = configuredWaffoProductIds(process.env.WAFFO_ALLOWED_PRODUCT_IDS)
+  if (!allowedProductIds.size) return NextResponse.json({ error: 'CHECKOUT_NOT_CONFIGURED' }, { status: 503 })
+  if (!allowedProductIds.has(body.productId)) return NextResponse.json({ error: 'INVALID_PRODUCT_ID' }, { status: 400 })
+
   const successPath = safeCheckoutPath(body.successPath)
   try {
-    const checkout = await createWaffoCheckout({ productId: body.productId, successUrl: new URL(successPath, request.url).toString(), buyerEmail: typeof body.buyerEmail === 'string' ? body.buyerEmail : undefined, merchantExternalId: typeof body.merchantExternalId === 'string' ? body.merchantExternalId : undefined, metadata: stringMetadata(body.metadata) })
+    const checkout = await createWaffoCheckout({ productId: body.productId, successUrl: new URL(successPath, request.url).toString(), buyerEmail: user.email })
     return NextResponse.json({ checkoutUrl: checkout.checkoutUrl, sessionId: checkout.id })
-  } catch (error) {
-    return NextResponse.json({ error: error instanceof Error ? error.message : 'CHECKOUT_FAILED' }, { status: 502 })
+  } catch {
+    return NextResponse.json({ error: 'CHECKOUT_UNAVAILABLE' }, { status: 502 })
   }
 }

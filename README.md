@@ -12,10 +12,10 @@ This is a foundation, not a finished product. It gives you the shared infrastruc
 
 ### Included
 
-- Next.js App Router, TypeScript, Tailwind CSS, and shadcn/ui
+- Next.js App Router, TypeScript, Tailwind CSS, and reusable Base UI primitives
 - Supabase email/password authentication and Google OAuth
 - Persistent login sessions and a protected `/account` page
-- Locale provider framework, SEO metadata, sitemap, robots rules, and optional GA4
+- Locale provider framework, SEO metadata, sitemap, robots rules, and opt-in Vercel Analytics / GA4
 - Generic Waffo checkout, signature verification, and webhook entry points
 - Account and legal-page shells, responsive navigation, and a minimal landing-page skeleton
 
@@ -59,7 +59,7 @@ After Google login, visit `/account` to confirm that the session persists. For t
 ### Important security notes
 
 - `SUPABASE_SERVICE_ROLE_KEY` and `WAFFO_PRIVATE_KEY` are server-only secrets. Never give them a `NEXT_PUBLIC_` prefix or commit them to Git.
-- The Waffo code is provider infrastructure only. Verify every webhook and implement idempotent fulfillment in your own business layer.
+- The Waffo code is provider infrastructure only. Checkout is disabled until `WAFFO_ALLOWED_PRODUCT_IDS` is configured, requires a signed-in user, and has a process-local rate limit. Verify every webhook, use a shared rate-limit service in production, and implement idempotent fulfillment in your own business layer.
 - This template contains no database migrations by design. You are responsible for your schema, RLS, privacy policy, and legal compliance.
 
 ### License and contributions
@@ -78,10 +78,10 @@ This project is licensed under [MIT](LICENSE). Issues and pull requests are welc
 
 ### 模板已经包含
 
-- Next.js App Router、TypeScript、Tailwind CSS 和 shadcn/ui
+- Next.js App Router、TypeScript、Tailwind CSS 和可复用的 Base UI 基础组件
 - Supabase 邮箱/密码登录，以及 Google 登录
 - 可持续保存的登录状态和受保护的 `/account` 账户页
-- 多语言 Provider 框架、SEO metadata、sitemap、robots 和可选 GA4
+- 多语言 Provider 框架、SEO metadata、sitemap、robots，以及需显式开启的 Vercel Analytics / GA4
 - 通用 Waffo 支付创建、验签和 webhook 入口
 - 账户页与法律页骨架、响应式导航和 Landing Page 骨架
 
@@ -125,7 +125,7 @@ Google 登录后，请访问 `/account`，确认登录状态可以持续存在�
 ### 安全提醒
 
 - `SUPABASE_SERVICE_ROLE_KEY` 和 `WAFFO_PRIVATE_KEY` 只能放在服务端环境变量中；不能加 `NEXT_PUBLIC_` 前缀，也不能提交到 Git。
-- Waffo 代码只提供支付基础能力。你仍需在自己的业务层验证每一个 webhook，并实现可重复调用也不会重复发货的交付逻辑。
+- Waffo 代码只提供支付基础能力。Checkout 默认关闭，必须配置 `WAFFO_ALLOWED_PRODUCT_IDS` 后才能使用；它要求用户登录，并带有进程内基础限流。生产环境仍应接入共享限流服务、验证每一个 webhook，并实现可重复调用也不会重复发货的交付逻辑。
 - 模板故意不附带数据库 migration。你的数据结构、RLS、隐私政策和合规责任需要根据新产品自行完成。
 
 ### 许可证与贡献

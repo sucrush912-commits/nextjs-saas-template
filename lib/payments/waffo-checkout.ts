@@ -7,3 +7,12 @@ export function stringMetadata(value: unknown): Record<string, string> | undefin
   const entries = Object.entries(value).filter((entry): entry is [string, string] => typeof entry[1] === 'string')
   return entries.length ? Object.fromEntries(entries) : undefined
 }
+
+export function configuredWaffoProductIds(value: string | undefined) {
+  return new Set(
+    (value || '')
+      .split(',')
+      .map((productId) => productId.trim())
+      .filter(Boolean)
+  )
+}

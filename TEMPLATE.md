@@ -2,7 +2,7 @@
 
 ## What this is
 
-This is a clean starting point for a SaaS product built with Next.js App Router, TypeScript, Supabase Auth, the Waffo Pancake provider, shadcn/ui and Tailwind CSS. It includes authentication helpers, session refresh, a minimal landing page, locale context, SEO metadata, optional GA4 loading and payment-provider primitives. It deliberately contains no product data model, product copy, products, reports or fulfillment rules.
+This is a clean starting point for a SaaS product built with Next.js App Router, TypeScript, Supabase Auth, the Waffo Pancake provider, Base UI and Tailwind CSS. It includes authentication helpers, session refresh, a minimal landing page, locale context, SEO metadata, opt-in analytics and payment-provider primitives. It deliberately contains no product data model, product copy, products, reports or fulfillment rules.
 
 ## Quick start
 
@@ -23,12 +23,14 @@ The repository is also configured for pnpm; use `pnpm install` and `pnpm dev` if
 | `NEXT_PUBLIC_SITE_URL` | Canonical site URL and OAuth/checkout origin fallback | Your deployed domain |
 | `NEXT_PUBLIC_POST_LOGIN_REDIRECT` | Internal path after auth events | Choose an internal route, such as `/` |
 | `NEXT_PUBLIC_GA_ID` | Optional GA4 Measurement ID | Google Analytics property settings |
+| `NEXT_PUBLIC_VERCEL_ANALYTICS_ENABLED` | Opt-in switch for Vercel Web Analytics; set only to `true` after privacy review | Leave blank to disable |
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | Supabase project settings |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase browser publishable key | Supabase project settings |
 | `SUPABASE_SERVICE_ROLE_KEY` | Server-only administrative key | Supabase project settings; never expose it to the browser |
 | `WAFFO_MERCHANT_ID` | Waffo merchant identifier | Waffo merchant dashboard |
 | `WAFFO_PRIVATE_KEY` | Server-only Waffo credential | Waffo merchant dashboard; never expose it to the browser |
 | `WAFFO_DEFAULT_CURRENCY` | Default Waffo checkout currency | Your Waffo product configuration |
+| `WAFFO_ALLOWED_PRODUCT_IDS` | Comma-separated allow-list for checkout products; required to enable checkout | Your Waffo product catalogue |
 | `WAFFO_PRODUCT_*` | Optional fixed product IDs for your future business layer | Your Waffo product catalogue |
 | `LOCATION_*`, `OPEN_METEO_*` | Unused compatibility placeholders from the source project | Only configure after adding a location feature |
 
@@ -72,5 +74,5 @@ public/                  Generic placeholder assets
 2. Put domain logic in a new `lib/<domain>/` module, not in UI components.
 3. Create route handlers under `app/api/<domain>/` to enforce authorization and validate input server-side.
 4. Add UI pages/components last, then connect them to those APIs.
-5. For Waffo, call `createWaffoCheckout` from your server-side business layer and pass verified events from the webhook route to an idempotent fulfillment handler.
+5. For Waffo, configure `WAFFO_ALLOWED_PRODUCT_IDS`, call `createWaffoCheckout` only from your server-side business layer, and pass verified events from the webhook route to an idempotent fulfillment handler. The built-in rate limit is process-local; use a shared rate-limit service before production.
 6. Add your public pages to `app/sitemap.ts`, then review metadata, robots rules, mobile behaviour, authentication and RLS before release.
