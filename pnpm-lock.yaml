@@ -20,12 +20,6 @@ importers:
       '@ground-codes/geoint':
         specifier: 0.0.3
         version: 0.0.3
-      '@openfate/bazi-engine':
-        specifier: ^1.1.2
-        version: 1.1.2
-      '@openfate/true-solar-time':
-        specifier: ^4.0.2
-        version: 4.0.2
       '@supabase/ssr':
         specifier: ^0.12.1
         version: 0.12.1(@supabase/supabase-js@2.110.3)
@@ -86,7 +80,7 @@ importers:
         version: 19.2.14
       '@types/react-dom':
         specifier: ^19
-        version: 19.2.3(@types/react@19.2.14)
+        version: 19.2.4(@types/react@19.2.14)
       eslint:
         specifier: ^9.39.5
         version: 9.39.5(jiti@2.6.1)
@@ -842,12 +836,6 @@ packages:
   '@open-draft/until@2.1.0':
     resolution: {integrity: sha512-U69T3ItWHvLwGg5eJ0n3I62nWuE6ilHlmz7zM0npLBRvPRd7e6NYmg54vvRtP5mZG7kZqZCFVdsTWo7BPtBujg==}
 
-  '@openfate/bazi-engine@1.1.2':
-    resolution: {integrity: sha512-Gpxdm7H8l+WHPFHTZhVuLjtuWshrJUFnY413KZJ8NtiryFV17DtXz/Z8YHRp1YhEIFcPvPtxr5B/jDULk25lfA==}
-
-  '@openfate/true-solar-time@4.0.2':
-    resolution: {integrity: sha512-kPcQBPay0sdNGnj2XyoUlg1Cyq6lcVOaTTqlC+lh1Bvg6RODwG4ZD3rOk0C5O/qhnErWXoKHRMb2Kap/YfhAgg==}
-
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
@@ -998,8 +986,8 @@ packages:
   '@types/node@24.10.4':
     resolution: {integrity: sha512-vnDVpYPMzs4wunl27jHrfmwojOGKya0xyM3sH+UE5iv5uPS6vX7UIoh6m+vQc5LGBq52HBKPIn/zcSZVzeDEZg==}
 
-  '@types/react-dom@19.2.3':
-    resolution: {integrity: sha512-jp2L/eY6fn+KgVVQAOqYItbF0VY/YApe5Mz2F0aykSO8gx31bYCZyvSeYxCHKvzHG5eZjc+zyaS5BrBWya2+kQ==}
+  '@types/react-dom@19.2.4':
+    resolution: {integrity: sha512-Bsc+QHgp+P/F02XDzNCY9jnZNCUuLki36KT7VKrTXXLdHf+vHMNZnW1rVu5DNW/rCK+fya3DATySbLM4yhtKUw==}
     peerDependencies:
       '@types/react': ^19.2.0
 
@@ -2060,9 +2048,6 @@ packages:
     resolution: {integrity: sha512-9FA9evdox/JQL5PT57fdA1x/yg8T7knJ98+zjTL3UfKza6pflQUUh3XtaQIHKvnsJw1lmsEyHVlt5jchYxOQ5w==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
-
-  lunar-javascript@1.7.7:
-    resolution: {integrity: sha512-u/KYiwPIBo/0bT+WWfU7qO1d+aqeB90Tuy4ErXenr2Gam0QcWeezUvtiOIyXR7HbVnW2I1DKfU0NBvzMZhbVQw==}
 
   magic-string@0.30.21:
     resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
@@ -3449,13 +3434,6 @@ snapshots:
 
   '@open-draft/until@2.1.0': {}
 
-  '@openfate/bazi-engine@1.1.2':
-    dependencies:
-      '@openfate/true-solar-time': 4.0.2
-      lunar-javascript: 1.7.7
-
-  '@openfate/true-solar-time@4.0.2': {}
-
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
@@ -3587,7 +3565,7 @@ snapshots:
     dependencies:
       undici-types: 7.16.0
 
-  '@types/react-dom@19.2.3(@types/react@19.2.14)':
+  '@types/react-dom@19.2.4(@types/react@19.2.14)':
     dependencies:
       '@types/react': 19.2.14
 
@@ -4599,8 +4577,6 @@ snapshots:
   lucide-react@1.17.0(react@19.2.4):
     dependencies:
       react: 19.2.4
-
-  lunar-javascript@1.7.7: {}
 
   magic-string@0.30.21:
     dependencies:
